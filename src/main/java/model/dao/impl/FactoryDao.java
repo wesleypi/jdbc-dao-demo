@@ -1,9 +1,7 @@
-package model.dao;
+package model.dao.impl;
 
-import model.dao.impl.DepartmentDao;
-import model.dao.impl.SellerDao;
+public class FactoryDao {
 
-public class DaoFactory {
     public static SellerDao createSellerDao(){
         return new SellerDao();
     }

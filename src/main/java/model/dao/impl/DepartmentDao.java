@@ -7,6 +7,8 @@ import java.util.List;
 
 public class DepartmentDao implements Dao<Department> {
 
+    protected DepartmentDao (){}
+
     @Override
     public void insert(Department department) {
 

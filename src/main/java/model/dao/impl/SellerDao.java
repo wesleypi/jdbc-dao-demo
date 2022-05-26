@@ -6,6 +6,9 @@ import model.entities.Seller;
 import java.util.List;
 
 public class SellerDao implements Dao<Seller> {
+
+    protected SellerDao(){}
+
     @Override
     public void insert(Seller seller) {
 
