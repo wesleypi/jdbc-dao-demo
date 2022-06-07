@@ -7,8 +7,9 @@ public class DepartmentTest {
 
     @Test
     public void testToString() {
-        Department department = new Department(1,"Manager");
-
+        Department department = Department.Builder.newInstance()
+                .setId(1)
+                .setName("Manager").build();
 
         String expected = "Department{id=1, name='Manager'}";
 

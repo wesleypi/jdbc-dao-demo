@@ -1,5 +1,7 @@
 package model.dao.impl;
 
+import model.FactoryConnection;
+
 public class FactoryDao {
 
     public static SellerDao createSellerDao(){

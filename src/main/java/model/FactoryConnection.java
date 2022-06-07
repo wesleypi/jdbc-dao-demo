@@ -9,15 +9,11 @@ import java.util.Properties;
 
 public class FactoryConnection {
 
-    public static Connection getConnection(){
-        try {
-            Properties properties = loadProperties();
-            return DriverManager.getConnection(properties.getProperty("url"), properties);
+    private FactoryConnection(){}
 
-        } catch (DBException | SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public static Connection getConnection() throws SQLException, DBException{
+        Properties properties = loadProperties();
+        return DriverManager.getConnection(properties.getProperty("url"), properties);
     }
 
     public static void closeConnection(Connection connection){
@@ -53,12 +49,12 @@ public class FactoryConnection {
     }
 
     private static Properties loadProperties() throws DBException {
-        try (FileInputStream fs = new FileInputStream("db.properties")){
+        try (FileInputStream fs = new FileInputStream("src/db.properties")){
             Properties properties = new Properties();
             properties.load(fs);
             return properties;
         } catch (IOException e) {
-            throw new DBException("something going wrong at loading properties: "+e);
+            throw new DBException("something going wrong at loading properties: \n"+e);
         }
     }
 }

@@ -3,20 +3,25 @@ package model.entities;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.math.BigDecimal;
 import java.util.Date;
-
-import static org.junit.Assert.*;
 
 public class SellerTest {
 
     @Test
     public void testToString() {
-        Department department = new Department(1, "Manager");
-        Seller seller = new Seller(1,"Rodrigo","Rodrigo@email.com",new Date(),new BigDecimal(3000), department);
+        Department department = Department.Builder.newInstance()
+                .setId(1).setName("Manager").build();
+
+        Seller seller = Seller.Builder.newInstance()
+                .setId(1).setName("Rodrigo")
+                .setEmail("Rodrigo@email.com")
+                .setBirthDay(new Date())
+                .setBaseSalary(3000)
+                .setDepartment(department).build();
 
         String expected = seller.toString();
 
         Assert.assertNotEquals(expected, "");
     }
+
 }

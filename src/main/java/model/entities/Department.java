@@ -5,15 +5,40 @@ import java.util.Objects;
 
 public class Department implements Serializable {
 
-    private Integer id;
-    private String name;
+    private final Integer id;
+    private final String name;
 
     public Department() {
+        id = 0;
+        name = "Nothing found";
     }
+    public Department(Builder builder){
+        this.id = builder.id;
+        this.name = builder.name;
+    }
+    public static class Builder{
+        private Integer id;
+        private String name;
 
-    public Department(Integer id, String name) {
-        this.id = id;
-        this.name = name;
+        public static Builder newInstance(){
+            return new Builder();
+        }
+
+        private Builder(){}
+
+        public Builder setId(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Department build(){
+            return new Department(this);
+        }
     }
 
     public Integer getId() {
@@ -22,10 +47,6 @@ public class Department implements Serializable {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override
