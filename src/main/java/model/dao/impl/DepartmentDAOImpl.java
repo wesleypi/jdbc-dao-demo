@@ -1,7 +1,7 @@
 package model.dao.impl;
 
-import model.FactoryConnection;
-import model.dao.Dao;
+import model.DBConnection;
+import model.dao.DepartmentDAO;
 import model.entities.Department;
 import model.exceptions.DBException;
 
@@ -9,9 +9,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DepartmentDao implements Dao<Department> {
+public class DepartmentDAOImpl implements DepartmentDAO {
 
-    protected DepartmentDao(){
+    protected DepartmentDAOImpl(){
     }
 
     @Override
@@ -39,10 +39,10 @@ public class DepartmentDao implements Dao<Department> {
 
         String sql = """
                 SELECT *
-                FROM "Department"
-                WHERE "Id" = ?""";
+                FROM department
+                WHERE id = ?""";
 
-        try(Connection connection = FactoryConnection.getConnection();
+        try(Connection connection = DBConnection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setInt(1,id);
@@ -66,16 +66,17 @@ public class DepartmentDao implements Dao<Department> {
 
     @Override
     public List<Department> findAll() {
+        ArrayList<Department> departments = new ArrayList<>();
+
         String sql = """
                 SELECT *
                 FROM "Department"
                 """;
 
-        ArrayList<Department> departments = new ArrayList<>();
-        try(Connection connection = FactoryConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try(Connection connection = DBConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            try (ResultSet resultSet = preparedStatement.executeQuery()){
+            try (ResultSet resultSet = statement.executeQuery()){
                 while (resultSet.next()){
                     departments.add(buildInstanceFrom(resultSet));
                 }
@@ -87,5 +88,5 @@ public class DepartmentDao implements Dao<Department> {
         return departments;
     }
 
-    }
+}
 

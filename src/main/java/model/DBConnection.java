@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 
-public class FactoryConnection {
+public class DBConnection {
 
-    private FactoryConnection(){}
+    private DBConnection(){}
 
     public static Connection getConnection() throws SQLException, DBException{
         Properties properties = loadProperties();
