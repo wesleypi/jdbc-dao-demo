@@ -16,7 +16,28 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 
     @Override
     public void insert(Department department) {
+        String sql = """
+                INSERT INTO department
+                (Name) VALUES (?)
+                """;
+        try(Connection connection = DBConnection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
 
+            preparedStatement.setString(1, department.getName());
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if(rowsAffected > 0) {
+                try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                    resultSet.next();
+
+                    department.setId(resultSet.getInt(1));
+
+                }
+            }
+        } catch (SQLException | DBException exception) {
+            exception.printStackTrace();
+        }
     }
 
     @Override

@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Department implements Serializable {
 
-    private final Integer id;
+    private Integer id;
     private final String name;
 
     public Department() {
@@ -39,6 +39,10 @@ public class Department implements Serializable {
         public Department build(){
             return new Department(this);
         }
+    }
+
+    public void setId (int id){
+        this.id = id;
     }
 
     public Integer getId() {

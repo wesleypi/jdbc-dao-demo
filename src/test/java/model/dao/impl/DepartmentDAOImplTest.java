@@ -10,6 +10,15 @@ public class DepartmentDAOImplTest {
 
     @Test
     public void insert() {
+        Department department = Department.Builder.newInstance().setName("Movies").build();
+
+        DepartmentDAOImpl dao = DAOImplFactory.createDepartmentDao();
+
+        System.out.println(department);
+
+        //dao.insert(department);
+
+        //System.out.println(department);
     }
 
     @Test

@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Seller implements Serializable {
-    private final Integer id;
+    private Integer id;
     private final String name;
     private final String email;
     private final Date birthDay;
@@ -78,6 +78,10 @@ public class Seller implements Serializable {
         public Seller build(){
             return new Seller(this);
         }
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getId() {
