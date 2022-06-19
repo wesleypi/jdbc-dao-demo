@@ -2,15 +2,15 @@ package model.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 public class Seller implements Serializable {
     private Integer id;
-    private final String name;
-    private final String email;
-    private final Date birthDay;
-    private final BigDecimal baseSalary;
+    private String name;
+    private String email;
+    private Date birthDate;
+    private BigDecimal baseSalary;
 
     private Department department;
 
@@ -18,70 +18,38 @@ public class Seller implements Serializable {
         id = 0;
         name = "Nothing found";
         email = "";
-        birthDay = new Date();
+        birthDate = new Date(0);
         baseSalary = new BigDecimal(0);
     }
 
-    public Seller(Builder builder) {
-        this.id = builder.id;
-        this.name = builder.name;
-        this.email = builder.email;
-        this.birthDay = builder.birthDay;
-        this.baseSalary = builder.baseSalary;
-        this.department = builder.department;
-    }
-
-    public static class Builder{
-        private Integer id;
-        private String name;
-        private  String email;
-        private Date birthDay;
-        private BigDecimal baseSalary;
-
-        private Department department;
-
-        public static Builder newInstance(){
-            return new Builder();
-        }
-        private Builder(){}
-
-        public Builder setId(Integer id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder setName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Builder setEmail(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public Builder setBirthDay(Date birthDay) {
-            this.birthDay = birthDay;
-            return this;
-        }
-
-        public Builder setBaseSalary(int baseSalary) {
-            this.baseSalary = BigDecimal.valueOf(baseSalary);
-            return this;
-        }
-
-        public Builder setDepartment(Department department) {
-            this.department = department;
-            return this;
-        }
-
-        public Seller build(){
-            return new Seller(this);
-        }
-    }
-
-    public void setId(Integer id) {
+    public Seller setId(Integer id) {
         this.id = id;
+        return this;
+    }
+
+    public Seller setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Seller setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public Seller setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+        return this;
+    }
+
+    public Seller setBaseSalary(int baseSalary) {
+        this.baseSalary = new BigDecimal(baseSalary);
+        return this;
+    }
+
+    public Seller setDepartment(Department department) {
+        this.department = department;
+        return this;
     }
 
     public Integer getId() {
@@ -96,8 +64,8 @@ public class Seller implements Serializable {
         return email;
     }
 
-    public Date getBirthDay() {
-        return birthDay;
+    public Date getBirthDate() {
+        return birthDate;
     }
 
     public BigDecimal getBaseSalary() {
@@ -127,7 +95,7 @@ public class Seller implements Serializable {
                 " id = " + id +
                 " , name = " + name +
                 " , email = " + email + '\n' +
-                " birthDay = " + birthDay +
+                " birthDate = " + birthDate +
                 " , baseSalary=" + baseSalary + '\n' +
                 ' '+ department.toString() + '\n' +
                 '}';

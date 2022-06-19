@@ -7,11 +7,11 @@ public class DepartmentTest {
 
     @Test
     public void testToString() {
-        Department department = Department.Builder.newInstance()
+        Department department = new Department()
                 .setId(1)
-                .setName("Manager").build();
+                .setName("Manager");
 
-        String expected = "Department{id=1, name='Manager'}";
+        String expected = "Department { id = 1, name = Manager }";
 
         Assert.assertEquals(expected, department.toString());
     }

@@ -18,8 +18,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
     public void insert(Department department) {
         String sql = """
                 INSERT INTO department
-                (Name) VALUES (?)
-                """;
+                (Name) VALUES (?)""";
         try(Connection connection = DBConnection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
 
@@ -32,7 +31,6 @@ public class DepartmentDAOImpl implements DepartmentDAO {
                     resultSet.next();
 
                     department.setId(resultSet.getInt(1));
-
                 }
             }
         } catch (SQLException | DBException exception) {
@@ -42,17 +40,42 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 
     @Override
     public void update(Department department) {
+        String sql = """
+                UPDATE department
+                SET Name = ?
+                WHERE id = ?""";
 
+        try (Connection connection = DBConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)){
+
+            statement.setString(1,department.getName());
+            statement.setInt(2,department.getId());
+
+            statement.executeUpdate();
+        } catch (DBException | SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void delete(Department department) {
+        String sql = """
+                DELETE FROM department
+                WHERE id = ?""";
+        try (Connection connection = DBConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)){
 
+            statement.setInt(1, department.getId());
+            statement.executeUpdate();
+
+        } catch (DBException | SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void deleteById(Integer id) {
-
+        delete(findById(id));
     }
 
     @Override
@@ -80,9 +103,9 @@ public class DepartmentDAOImpl implements DepartmentDAO {
     }
 
     private Department buildInstanceFrom(ResultSet resultSet) throws SQLException {
-        return Department.Builder.newInstance()
+        return new Department()
                     .setId(resultSet.getInt("Id"))
-                    .setName(resultSet.getString("Name")).build();
+                    .setName(resultSet.getString("Name"));
     }
 
     @Override
@@ -91,8 +114,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 
         String sql = """
                 SELECT *
-                FROM "Department"
-                """;
+                FROM Department""";
 
         try(Connection connection = DBConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)) {

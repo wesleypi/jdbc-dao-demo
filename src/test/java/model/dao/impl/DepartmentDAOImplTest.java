@@ -10,27 +10,35 @@ public class DepartmentDAOImplTest {
 
     @Test
     public void insert() {
-        Department department = Department.Builder.newInstance().setName("Movies").build();
+        Department department = new Department()
+                .setName("Teste");
 
         DepartmentDAOImpl dao = DAOImplFactory.createDepartmentDao();
 
         System.out.println(department);
 
-        //dao.insert(department);
+        dao.insert(department);
 
-        //System.out.println(department);
+        System.out.println(department);
     }
 
     @Test
     public void update() {
-    }
+        DepartmentDAOImpl dao = DAOImplFactory.createDepartmentDao();
 
-    @Test
-    public void delete() {
-    }
+        Department department = new Department()
+                .setId(4)
+                .setName("Movies");
 
-    @Test
-    public void deleteById() {
+        dao.update(department);
+
+        Assert.assertEquals("Movies", dao.findById(4).getName());
+
+        department.setName("Books");
+
+        dao.update(department);
+
+        Assert.assertEquals("Books", dao.findById(4).getName());
     }
 
     @Test
@@ -39,21 +47,17 @@ public class DepartmentDAOImplTest {
 
         Department department = dao.findById(4);
 
-        Assert.assertEquals("Department{id=4, name='Books'}",department.toString());
+        Assert.assertEquals("Department { id = 4, name = Books }",department.toString());
 
-        System.out.println(department+"\n");
     }
 
     @Test
-    public void findAllMustBeNotNull() {
+    public void findAll() {
         DepartmentDAOImpl dao = DAOImplFactory.createDepartmentDao();
 
         List<Department> departments = dao.findAll();
 
         Assert.assertNotNull(departments);
-
-        departments.forEach(System.out::println);
     }
-
 
 }

@@ -3,21 +3,19 @@ package model.entities;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Date;
-
 public class SellerTest {
 
     @Test
     public void testToString() {
-        Department department = Department.Builder.newInstance()
-                .setId(1).setName("Manager").build();
+        Department department = new Department()
+                .setId(1).setName("Manager");
 
-        Seller seller = Seller.Builder.newInstance()
+        Seller seller = new Seller()
                 .setId(1).setName("Rodrigo")
                 .setEmail("Rodrigo@email.com")
-                .setBirthDay(new Date())
+                .setBirthDate(java.sql.Date.valueOf("1999-7-22"))
                 .setBaseSalary(3000)
-                .setDepartment(department).build();
+                .setDepartment(department);
 
         String expected = seller.toString();
 
